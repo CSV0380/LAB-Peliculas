@@ -63,7 +63,23 @@ def media_presupuesto_por_genero(peliculas: List[Pelicula]) -> Dict[str, float]:
            #pones la clave : lo que quieres
 
 
+#APARTADO 4 (1.5 puntos)
 
+def peliculas_por_actor(lista: List[Pelicula], año_inicial: int = None, año_final: int = None) -> Dict[str, int]:
+    peliculas = defaultdict(int)  # Diccionario para contar las participaciones
+    
+    for pelicula in lista:
+        # Asegúrate de obtener el año como entero
+        año_estreno = pelicula.fecha_estreno.year  # Asegúrate de que fecha_estreno es un objeto datetime.date
+        if (año_inicial is None or año_estreno >= año_inicial) and (año_final is None or año_estreno <= año_final):
+            for actor in pelicula.reparto:
+                peliculas[actor] += 1  # Incrementar el contador para cada actor
+    
+    return sorted(dict(peliculas).items(), key = lambda x: x[1], reverse = True)
+
+
+
+def actores_mas_frecuentes(lista: List[Pelicula], n: int, año_inicial: int = None, año_final: int = None) -> 
 
 
 if __name__ == '__main__':
@@ -73,4 +89,6 @@ if __name__ == '__main__':
 
     #print(f"{peliculas_mas_ganancias(datos, "Drama")}")
 
-    print(f"{media_presupuesto_por_genero(datos)}")
+    #print(f"{media_presupuesto_por_genero(datos)}")
+
+    print(f"{peliculas_por_actor(datos, 2005, 2019)}")
